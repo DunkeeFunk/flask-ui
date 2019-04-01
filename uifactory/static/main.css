@@ -1,0 +1,107 @@
+body {
+  background: #e9e5e5 ;
+  color: #333333;
+  margin-top: 5rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+.bg-steel {
+  background-color: #fefefe;
+}
+
+.nav-logo-fit {
+    max-width: 65%;
+    max-height: 65%;
+}
+
+.logo-fit {
+    max-width: 65%;
+    max-height: 65%;
+    position: relative;
+    left: 70px;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #a09d9c;
+  font-weight: bold;
+  font-size: 16pt;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #5d5c5c;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 4px solid #3f8936 ;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  max-width:400px;
+  margin:0 auto;
+}
+
+.ana-panel {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #fefefe ;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
