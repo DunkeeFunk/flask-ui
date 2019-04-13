@@ -10,9 +10,10 @@ Flask-Mail==0.9.1
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.10.1
 MarkupSafe==1.0
 Pillow==5.3.0
+psycopg2==2.7.7
 pycparser==2.18
 six==1.11.0
 SQLAlchemy==1.2.7

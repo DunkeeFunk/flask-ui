@@ -48,6 +48,10 @@ def create_app(config_name):
     @ui.route('/home')
     @login_required
     def home():
+        # you will require this knowledge is 5 mins
+        # we want to get the plants of the current user here
+        # and pass them out through render template to be parsed by the html into panels
+        print(type(current_user.public_id))
         # pass in the plants/panels here and render them
         return render_template('home.html', title='Home')
 
