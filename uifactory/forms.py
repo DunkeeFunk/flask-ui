@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, Length
 #local
 from uifactory.models import Users
 
@@ -23,3 +23,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+
+class AddPlantForm(FlaskForm):
+    pl_name = StringField('Plant Name', validators=[DataRequired(), Length(min=3, max=50)])
+    pl_type = StringField('Plant Type', validators=[DataRequired(), Length(min=3, max=50)])
+    sen_id = StringField('Sensor Id', validators=[DataRequired(), Length(min=12, max=12)])
+    submit = SubmitField('Add Plant')

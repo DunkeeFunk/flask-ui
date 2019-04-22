@@ -1,15 +1,51 @@
 {% extends "layout.html" %}
 {% block content %}
 
+    <a class="btn btn-pill btn-success btnpos round" href="{{ url_for('add_plant') }}">
+        Add Plant
+    </a>
+
+    {% for plant in plants %}
         <article class="media ana-panel">
             <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">author</a>
-                    <small class="text-muted">date</small>
+                    <h7 class="mr-2" href="#">Sensor id: {{ plant[0].sensor_id }}</h7>
+                    <small class="text-muted">Type: {{ plant[0].plant_type }}</small>
                 </div>
-                <h2><a class="article-title" href="#">title</a></h2>
-                <p class="article-content">content</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h5>{{ plant[0].plant_name }}</h5>
+                            <!--<p class="article-content">content</p>-->
+                            <img class="plant-img-fit" src="{{ url_for('static', filename='plant-icon.png') }}">
+                        </div>
+                        <div class="col-sm">
+                            <h5>Readings:</h5>
+                            <h6>current temp = {{ plant[1].temp }}°C</h6>
+                            <h6>current humidity = {{ plant[1].humidity }}%</h6>
+                            <h6>current light = {{ plant[1].light }}</h6>
+                            <h6>current soil moisture = {{ plant[1].soil_m }}</h6>
+                        </div>
+                        <div class="col-sm">
+                            <h5>Weather Reports</h5>
+                            <h6> Air Pressure: {{ weather.air_pressure }}</h6>
+                            <h6>Sunrise: {{ weather.sunrise }}</h6>
+                            <h6>Sunset: {{ weather.sunset }}</h6>
+                            <h6>Wind Speed: {{ weather.wind_speed }}</h6>
+                        </div>
+                        <div class="col-sm">
+                            <h5>ML Reports</h5>
+                            <h6>KNN Prediction: {{ plant[2].knn_pre }} </h6>
+                            <h6>KNN Accuracy: {{ plant[2].knn_acc }}</h6>
+                            <h6>SVC Prediction: {{ plant[2].svm_pre}} </h6>
+                            <h6>SVC Accuracy: {{ plant[2].svm_acc }}</h6>
+                            <h6>RF Prediction: {{ plant[2].rf_pre}} </h6>
+                            <h6>RF Accuracy: {{ plant[2].rf_acc}} </h6>
+                        </div>
+                    </div>
+                </div>
             </div>
         </article>
+    {% endfor %}
 
 {% endblock content %}

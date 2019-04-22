@@ -6,6 +6,8 @@ from flask_login import login_user, logout_user, login_required
 from flask_login import LoginManager, current_user
 # local imports
 from instance.config import app_config
+from calls.weather import get_weather
+from calls.ml_endpoint import get_ml_data
 
 # initialize sql-alchemy
 db = SQLAlchemy()
@@ -14,7 +16,7 @@ db = SQLAlchemy()
 def create_app(config_name):
 
     from uifactory.models import Users, Measurements, Plants, Models
-    from .forms import RegistrationForm, LoginForm
+    from .forms import RegistrationForm, LoginForm, AddPlantForm
 
     ui = Flask(__name__, instance_relative_config=True)
     ui.config.from_object(app_config[config_name])
@@ -48,12 +50,41 @@ def create_app(config_name):
     @ui.route('/home')
     @login_required
     def home():
-        # you will require this knowledge is 5 mins
-        # we want to get the plants of the current user here
-        # and pass them out through render template to be parsed by the html into panels
-        print(type(current_user.public_id))
-        # pass in the plants/panels here and render them
-        return render_template('home.html', title='Home')
+        # get this users plants
+        plants = Plants.query.filter_by(owner_id=current_user.public_id).all()
+        # empty list to add each users current measurement
+        users_measurements = []
+        # this returns a dict with weather for the area
+        weather = get_weather()
+        # empty list for each plants predictions
+        ml_results = []
+        for plant in plants:
+            # get that plants current measurement
+            users_mea = Measurements.query.filter(Measurements.username.like(plant.sensor_id))\
+                                            .order_by(Measurements.date_created.desc()).first()
+            # get machine learning predictions for these measurements
+            cur_ml = get_ml_data(users_mea.sensor_name, plant.sensor_id, str(users_mea.temp),
+                                 str(users_mea.humidity), str(users_mea.light))
+            # append to a list of dicts
+            ml_results.append(cur_ml)
+            # put this into a list of queries
+            users_measurements.append(users_mea)
+
+        # pass all this out to the html template - needs formatted
+        return render_template('home.html', title='Home', plants=zip(plants, users_measurements, ml_results), weather=weather)
+
+    @ui.route('/addplant', methods=['GET', 'POST'])
+    @login_required
+    def add_plant():
+        form = AddPlantForm()
+        if form.validate_on_submit():
+            # add plant to the db
+            new_plant = Plants(plant_name=form.pl_name.data, plant_type=form.pl_type.data,
+                               sensor_id=form.sen_id.data, public_id=current_user.public_id)
+            # save plant in the db
+            new_plant.save()
+            return redirect(url_for('home'))
+        return render_template('add_plant.html', title='Add Plant', form=form)
 
     @ui.route('/about')
     def about():

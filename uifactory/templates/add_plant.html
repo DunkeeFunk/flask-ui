@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <img class="logo-fit" src="{{ url_for('static', filename='navlogo.png') }}">
+                <p class="mb-2">Add Plant</p>
+                <div class="form-group">
+                    {{ form.pl_name.label(class="form-control-label") }}
+
+                    {% if form.pl_name.errors %}
+                        {{ form.pl_name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.pl_name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.pl_name(class="form-control form-control-lg") }}
+                    {% endif%}
+                </div>
+                <div class="form-group">
+                    {{ form.pl_type.label(class="form-control-label") }}
+
+                    {% if form.pl_type.errors %}
+                        {{ form.pl_type(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.pl_type.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.pl_type(class="form-control form-control-lg") }}
+                    {% endif%}
+                </div>
+                <div class="form-group">
+                    {{ form.sen_id.label(class="form-control-label") }}
+
+                    {% if form.sen_id.errors %}
+                        {{ form.sen_id(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.sen_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.sen_id(class="form-control form-control-lg") }}
+                    {% endif%}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-success") }}
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

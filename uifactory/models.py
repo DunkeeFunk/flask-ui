@@ -69,6 +69,9 @@ class Plants(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def __repr__(self):
+        return "<Plant oid, sid: {}, {}>".format(self.owner_id, self.sensor_id)
+
 
 class Measurements(db.Model):
     """This class represents the measurements table"""
@@ -102,7 +105,7 @@ class Measurements(db.Model):
         return Measurements.query.order_by(Measurements.date_created.desc()).first()
 
     def __repr__(self):
-        return "<SensorName: {}>".format(self.sensor_name)
+        return "<SensorName: {}, {}>".format(self.sensor_name, self.username)
 
 
 class Models(db.Model):
