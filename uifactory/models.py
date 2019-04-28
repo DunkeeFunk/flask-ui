@@ -105,7 +105,7 @@ class Measurements(db.Model):
         return Measurements.query.order_by(Measurements.date_created.desc()).first()
 
     def __repr__(self):
-        return "<SensorName: {}, {}>".format(self.sensor_name, self.username)
+        return "<Measurement: Sensor Name: {}, Username: {}>".format(self.sensor_name, self.username)
 
 
 class Models(db.Model):

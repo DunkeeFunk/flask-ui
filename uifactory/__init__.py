@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import uuid
 from flask_login import login_user, logout_user, login_required
 from flask_login import LoginManager, current_user
+import json
 # local imports
 from instance.config import app_config
 from calls.weather import get_weather
@@ -63,8 +64,10 @@ def create_app(config_name):
             users_mea = Measurements.query.filter(Measurements.username.like(plant.sensor_id))\
                                             .order_by(Measurements.date_created.desc()).first()
             # get machine learning predictions for these measurements
-            cur_ml = get_ml_data(users_mea.sensor_name, plant.sensor_id, str(users_mea.temp),
-                                 str(users_mea.humidity), str(users_mea.light))
+            try:
+                cur_ml = get_ml_data(str(users_mea.temp), str(users_mea.humidity), str(users_mea.light))
+            except:
+                cur_ml = get_ml_data("0", "0", "0")
             # append to a list of dicts
             ml_results.append(cur_ml)
             # put this into a list of queries

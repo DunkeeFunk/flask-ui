@@ -28,18 +28,30 @@
                         </div>
                         <div class="col-sm">
                             <h5>Weather Reports</h5>
-                            <h6> Air Pressure: {{ weather.air_pressure }}</h6>
+                            <h6> Air Pressure: {{ weather.air_pressure }} atm</h6>
                             <h6>Sunrise: {{ weather.sunrise }}</h6>
                             <h6>Sunset: {{ weather.sunset }}</h6>
-                            <h6>Wind Speed: {{ weather.wind_speed }}</h6>
+                            <h6>Wind Speed: {{ weather.wind_speed }} mph</h6>
                         </div>
                         <div class="col-sm">
                             <h5>ML Reports</h5>
-                            <h6>KNN Prediction: {{ plant[2].knn_pre }} </h6>
+                            {% if plant[2].knn_pre == 'True' and plant[1].soil_m == 1 %}
+                                <h6 class="green-warning">KNN Prediction: {{ plant[2].knn_pre }} </h6>
+                            {% else %}
+                                <h6 class="red-warning">KNN Prediction: {{ plant[2].knn_pre }} </h6>
+                            {% endif %}
                             <h6>KNN Accuracy: {{ plant[2].knn_acc }}</h6>
-                            <h6>SVC Prediction: {{ plant[2].svm_pre}} </h6>
+                            {% if plant[2].svm_pre == 'True' and plant[1].soil_m == 1 %}
+                                <h6 class="green-warning">SVC Prediction: {{ plant[2].svm_pre}} </h6>
+                            {% else %}
+                                <h6 class="red-warning">SVC Prediction: {{ plant[2].svm_pre}} </h6>
+                            {% endif %}
                             <h6>SVC Accuracy: {{ plant[2].svm_acc }}</h6>
-                            <h6>RF Prediction: {{ plant[2].rf_pre}} </h6>
+                            {% if plant[2].rf_pre == 'True' and plant[1].soil_m == 1 %}
+                                <h6 class="green-warning">RF Prediction: {{ plant[2].rf_pre}} </h6>
+                            {% else %}
+                                <h6 class="red-warning">RF Prediction: {{ plant[2].svm_pre}} </h6>
+                            {% endif %}
                             <h6>RF Accuracy: {{ plant[2].rf_acc}} </h6>
                         </div>
                     </div>

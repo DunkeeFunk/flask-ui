@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 
 
 def get_weather():
@@ -7,8 +8,8 @@ def get_weather():
     weather = r.json()
     return_me = {
         'air_pressure': weather['main']['pressure'],
-        'sunrise': weather['sys']['sunrise'],
-        'sunset': weather['sys']['sunset'],
+        'sunrise': str(datetime.utcfromtimestamp(weather['sys']['sunrise']).strftime('%Y-%m-%d %H:%M:%S')),
+        'sunset': str(datetime.utcfromtimestamp(weather['sys']['sunset']).strftime('%Y-%m-%d %H:%M:%S')),
         'wind_speed': weather['wind']['speed']
     }
     return return_me
